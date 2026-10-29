@@ -25,7 +25,7 @@ pub fn primary_window() -> Window {
     let cursor_rehearsal = std::env::args().any(|arg| arg == "--review-os-cursor")
         && std::env::var_os("WAYLAND_DISPLAY").is_none();
     Window {
-        title: "BatPet Desktop".to_owned(),
+        title: "BATTY Desktop".to_owned(),
         resolution: WindowResolution::new(WINDOW_WIDTH, WINDOW_HEIGHT)
             .with_scale_factor_override(1.0),
         transparent: !cursor_rehearsal,

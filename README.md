@@ -1,4 +1,4 @@
-# BatPet
+# BATTY
 
 Um companheiro de desktop em pixel-art: um pequeno morcego roxo, pendurado,
 curioso e um pouco tímido. Projeto experimental em Rust.

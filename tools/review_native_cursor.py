@@ -52,13 +52,13 @@ environment.pop('WAYLAND_DISPLAY', None)
 environment['WINIT_UNIX_BACKEND'] = 'x11'
 outside_y = x11.XDisplayHeight(display, 0) - 100
 parking = x11.XCreateSimpleWindow(display,x11.XDefaultRootWindow(display),100,outside_y,64,64,0,0,0)
-x11.XStoreName(display,parking,b'BatPet cursor review target')
+x11.XStoreName(display,parking,b'BATTY cursor review target')
 x11.XMapWindow(display,parking)
 x11.XFlush(display)
 
 def park():
     # Xwayland may ignore warps into a Wayland-owned surface. A disposable
-    # X11 target lets the pointer actually leave BatPet and emit CursorLeft.
+    # X11 target lets the pointer actually leave BATTY and emit CursorLeft.
     x,y,child = c.c_int(),c.c_int(),c.c_ulong()
     x11.XTranslateCoordinates(display,parking,x11.XDefaultRootWindow(display),0,0,c.byref(x),c.byref(y),c.byref(child))
     move(x.value+32,y.value+32)
@@ -81,7 +81,7 @@ try:
                 clients = subprocess.check_output(['xprop','-root','_NET_CLIENT_LIST'],text=True)
                 for candidate in re.findall(r'0x[0-9a-fA-F]+',clients):
                     name = subprocess.check_output(['xprop','-id',candidate,'WM_NAME'],text=True)
-                    if '"BatPet Desktop"' in name:
+                    if '"BATTY Desktop"' in name:
                         window_id = int(candidate,16)
                         break
             sample = rows[-1].split(',') if len(rows) > 1 else []

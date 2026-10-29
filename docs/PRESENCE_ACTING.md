@@ -69,7 +69,7 @@ python tools/verify_review.py /tmp/presence-native
 ```
 
 O helper requer X11/Xwayland, `xprop`, libX11 e libXtst. Ele abre uma pequena
-janela temporária para receber o cursor fora do BatPet: Xwayland pode ignorar
+janela temporária para receber o cursor fora do BATTY: Xwayland pode ignorar
 warps para superfícies Wayland. Fecha essa janela e restaura o ponteiro no fim.
 A janela de revisão usa fundo opaco porque o backend X11 deste ambiente não
 aceitou transparência. O uso normal em Wayland continua transparente.

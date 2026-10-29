@@ -31,7 +31,7 @@ O conjunto mínimo tem quatro frames no sprite sheet `bat_flight_sheet.png`:
 
 As asas foram desenhadas na mesma grade de 1× lógico e na paleta roxa
 existente. O corpo central é um recorte da textura aprovada, sem as garras do
-hanging. Assim o rosto continua sendo o mesmo BatPet, enquanto a silhueta
+hanging. Assim o rosto continua sendo o mesmo BATTY, enquanto a silhueta
 ganha largura imediatamente quando ele se solta.
 
 ## Timing e direção
