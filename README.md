@@ -3,12 +3,33 @@
 Um companheiro de desktop em pixel-art: um pequeno morcego roxo, pendurado,
 curioso e um pouco tímido. Projeto experimental em Rust.
 
-O workspace contém `batpet-desktop` (Bevy 0.19) e o protótipo independente
-`batpet` para terminal (`crossterm`).
+O workspace contém `batpet-desktop` (Bevy 0.19), cujo binário se chama `batty`,
+e o protótipo independente `batpet` para terminal (`crossterm`).
+
+## `batty`: ativação pelo terminal
+
+O `batty` só existe enquanto é chamado. Não há autostart, serviço nem processo
+de fundo. Ele lê sinais baratos da pasta onde foi chamado (arquivos alterados
+em um repositório git e a hora), fala no terminal, mostra o morcego por alguns
+segundos e sai sozinho.
 
 ```bash
-cargo run -p batpet-desktop
+cargo run --bin batty                 # fala e sai após 8 s
+cargo run --bin batty -- --look       # também olha o monitor em foco
+cargo run --bin batty -- --stay 0     # mantém a janela até fechar
+cargo run --bin batty -- --help
 ```
+
+`--look` pede ao Noctalia uma captura do monitor em foco e envia o PNG em
+memória para `batty analyze`. Esse subcomando mede a fração de pixels com vermelho
+de erro e grava só esse número em `$XDG_RUNTIME_DIR/batty/`. A imagem nunca é
+gravada em disco. A análise é por regras, sem modelo: detecta "tem vermelho
+forte na tela", não lê palavras.
+
+As decisões de fala estão em `batpet-desktop/src/companion/brain.rs`. Cada
+possível fala recebe uma pontuação; só a maior é dita, se passar do limiar.
+Os limiares ainda são uma primeira aproximação, e o terminal mostra a fração
+medida em cada `--look` para facilitar a calibração.
 
 O mouse desperta atenção dentro da janela. O morcego olha primeiro, acompanha
 com o rosto e reage à proximidade. Um clique faz um pequeno encolher e espiar,
@@ -76,7 +97,7 @@ referência usada por Alive.
 Para observar viagens repetidas com logs:
 
 ```bash
-cargo run --bin batpet-desktop -- --debug --habitat-loop
+cargo run --bin batty -- --debug --habitat-loop
 ```
 
 `--flight-loop` continua aceito como alias; `--flight-once` faz uma viagem. Com

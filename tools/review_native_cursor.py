@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Linux/X11 rehearsal using real pointer events, including leaving the window.
 
-python tools/review_native_cursor.py target/debug/batpet-desktop /tmp/review-native
+python tools/review_native_cursor.py target/debug/batty /tmp/review-native
 Bevy records the desired path; XTest moves the actual pointer, including
 departure, which winit's window-relative setter cannot do. No clicks are sent.
 """

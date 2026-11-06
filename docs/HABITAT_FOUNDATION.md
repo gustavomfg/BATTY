@@ -105,14 +105,14 @@ Essas decisões ficam fora deste milestone.
 Execute o loop no renderer normal:
 
 ```bash
-cargo run --bin batpet-desktop -- --debug --habitat-loop
+cargo run --bin batty -- --debug --habitat-loop
 ```
 
 Os logs registram origem, destino, entrada nos estados e perch atual após o
 pouso. Para capturar três viagens completas e encerrar automaticamente:
 
 ```bash
-cargo run --bin batpet-desktop -- --debug \
+cargo run --bin batty -- --debug \
   --review-dir /tmp/batpet-habitat-review --review-habitat --habitat-loop
 ```
 

@@ -3,5 +3,11 @@ name = "batpet-desktop"
 version = "0.1.0"
 edition = "2024"
 
+[[bin]]
+name = "batty"
+path = "src/main.rs"
+
 [dependencies]
 bevy = { version = "0.19.1", default-features = false, features = ["2d"] }
+# Only the PNG decoder: the companion reads a screenshot piped from Noctalia.
+image = { version = "0.25", default-features = false, features = ["png"] }

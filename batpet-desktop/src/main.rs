@@ -1,3 +1,4 @@
+mod companion;
 mod debug;
 mod pet;
 mod rendering;
@@ -10,10 +11,30 @@ use bevy::{
     prelude::*,
 };
 
+use companion::CompanionRun;
 use debug::DebugOptions;
 use pet::{BatState, CursorState, EyeState};
 
 fn main() {
+    let args: Vec<String> = std::env::args().collect();
+    // Internal entry point: Noctalia pipes a screenshot here. No window opens.
+    if args.get(1).map(String::as_str) == Some("analyze") {
+        std::process::exit(companion::vision::run_analyze_command(&args[2..]));
+    }
+    if args.iter().any(|arg| arg == "--help" || arg == "-h") {
+        print!("{}", companion::USAGE);
+        return;
+    }
+    let options = match companion::Options::parse(&args) {
+        Ok(options) => options,
+        Err(error) => {
+            eprintln!("batty: {error}\n{}", companion::USAGE);
+            std::process::exit(2);
+        }
+    };
+    // Speaks in the terminal before the window exists, so `--look` never sees the bat.
+    let companion_run = CompanionRun::prepare(&options);
+
     let debug = DebugOptions::from_args();
     let log_filter = if debug.enabled {
         "error,batpet_desktop=info"
@@ -25,6 +46,7 @@ fn main() {
         .insert_resource(debug)
         .insert_resource(pet::HabitatDebug::from_args())
         .insert_resource(review::Review::from_args())
+        .insert_resource(companion_run)
         .insert_resource(ClearColor(
             if std::env::args().any(|arg| arg == "--review-light") {
                 Color::srgb_u8(235, 231, 240)
@@ -53,7 +75,15 @@ fn main() {
         .init_resource::<pet::Habitat>()
         .init_resource::<pet::FlightPlan>()
         .init_resource::<window::WindowPlacement>()
-        .add_systems(Startup, (rendering::setup, window::log_startup))
+        .add_systems(
+            Startup,
+            (
+                rendering::setup,
+                window::log_startup,
+                companion::start_briefing_reaction,
+            ),
+        )
+        .add_systems(Update, companion::exit_after_stay)
         .add_systems(
             Update,
             (
