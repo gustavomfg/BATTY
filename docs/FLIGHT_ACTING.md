@@ -41,7 +41,7 @@ Executados cargo fmt --all, cargo check --workspace e cargo test --workspace
 continuidade de fase, equivalência entre 30/120 Hz, sustentação em repouso
 aéreo e fechamento apenas após contato.
 
-Executado cargo run --bin batpet-desktop -- --flight-loop, além de ciclos
+Executado cargo run --bin batty -- --flight-loop, além de ciclos
 capturados com --review-flight --flight-once. As sequências de saída, voo,
 aproximação, contato e retorno ao Alive foram comparadas por quadros.
 Os logs confirmam ciclos repetidos completos. Esta inspeção por capturas

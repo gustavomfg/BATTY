@@ -64,7 +64,7 @@ Ensaio Linux/X11 com movimentos reais do ponteiro, sem cliques:
 
 ```bash
 cargo build -p batpet-desktop
-python tools/review_native_cursor.py target/debug/batpet-desktop /tmp/presence-native
+python tools/review_native_cursor.py target/debug/batty /tmp/presence-native
 python tools/verify_review.py /tmp/presence-native
 ```
 
